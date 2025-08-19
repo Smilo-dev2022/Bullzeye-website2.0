@@ -6,17 +6,44 @@
     <title>Bullzeye Security Ops</title>
     <meta name="description" content="Bullzeye Security Ops" />
     <style>
-      :root { --accent: #0b5cff; --text: #1a1a1a; --muted: #6b7280; --bg: #ffffff; --border: #e5e7eb; }
+      :root { --accent: #dc2626; --text: #111111; --muted: #6b7280; --bg: #ffffff; --border: #e5e7eb; --black: #111827; --white: #ffffff; }
       * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
       body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; color: var(--text); background: var(--bg); }
-      header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 14px; }
+      
+      /* Header & Navigation */
+      header { position: sticky; top: 0; z-index: 50; background: var(--black); color: var(--white); border-bottom: 1px solid #0f172a; }
+      .nav-inner { max-width: 1100px; margin: 0 auto; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; gap: 14px; }
       header img.featured { height: 40px; width: auto; display: block; }
-      header a.logo { display: inline-flex; align-items: center; }
-      main { max-width: 960px; margin: 24px auto; padding: 0 20px 40px; }
-      h1 { font-size: 1.75rem; margin: 0 0 16px; }
-      p.lead { color: var(--muted); margin: 0 0 24px; }
-      section { margin-top: 32px; }
-      .card { border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+      header a.logo { display: inline-flex; align-items: center; gap: 10px; color: inherit; text-decoration: none; }
+      header strong.brand { font-size: 1rem; letter-spacing: 0.3px; }
+      nav ul { list-style: none; display: flex; gap: 14px; padding: 0; margin: 0; align-items: center; }
+      nav a { color: var(--white); text-decoration: none; padding: 8px 10px; border-radius: 6px; }
+      nav a:hover { background: rgba(255,255,255,0.08); }
+      .nav-cta { background: var(--accent); color: var(--white); font-weight: 700; }
+      .nav-cta:hover { background: #b91c1c; }
+      .menu-toggle { display: none; background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.2); padding: 8px 10px; border-radius: 6px; }
+
+      /* Layout */
+      main { max-width: 1100px; margin: 0 auto; padding: 0 20px 40px; }
+      section { margin-top: 48px; scroll-margin-top: 80px; }
+      h1 { font-size: 2rem; margin: 0 0 16px; }
+      h2 { font-size: 1.375rem; margin: 0 0 14px; }
+      p.lead { color: var(--muted); margin: 0 0 24px; font-size: 1.05rem; }
+
+      /* Hero */
+      .hero { position: relative; margin: 0; padding: 0; }
+      .hero-wrap { border-bottom: 1px solid var(--border); background: linear-gradient(180deg, rgba(17,24,39,0.75), rgba(17,24,39,0.75)), url('bullzeye.jpg') center/cover no-repeat; }
+      .hero-content { max-width: 1100px; margin: 0 auto; padding: 42px 20px; color: var(--white); }
+      .hero h1 { font-size: 2.1rem; margin: 0 0 10px; }
+      .badge { display: inline-block; background: var(--accent); color: var(--white); padding: 6px 10px; border-radius: 999px; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.3px; }
+      .hero-actions { display: flex; gap: 12px; margin-top: 14px; }
+      .btn { appearance: none; background: var(--accent); color: var(--white); border: 0; padding: 10px 14px; border-radius: 8px; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; }
+      .btn.secondary { background: var(--black); color: var(--white); }
+      .btn.ghost { background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.35); }
+
+      /* Cards & Forms */
+      .card { border: 1px solid var(--border); border-radius: 12px; padding: 20px; background: var(--white); }
       form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
       .full { grid-column: 1 / -1; }
       label { display: block; font-weight: 600; margin: 4px 0 6px; }
@@ -24,27 +51,119 @@
       textarea { min-height: 120px; resize: vertical; }
       .hint { color: var(--muted); font-size: 0.9rem; margin-top: 6px; }
       .actions { display: flex; gap: 12px; align-items: center; margin-top: 6px; }
-      button { appearance: none; background: var(--accent); color: #fff; border: 0; padding: 10px 14px; border-radius: 8px; font-weight: 600; cursor: pointer; }
-      button.secondary { background: #111827; }
+      button { appearance: none; background: var(--accent); color: #fff; border: 0; padding: 10px 14px; border-radius: 8px; font-weight: 700; cursor: pointer; }
+      button.secondary { background: var(--black); }
+
+      /* Services */
+      .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+      .service { border: 1px solid var(--border); border-radius: 12px; padding: 16px; background: #ffffff; }
+      .service h3 { margin: 0 0 6px; font-size: 1.05rem; }
+      .service p { margin: 0; color: var(--muted); }
+
+      /* Footer */
       footer { border-top: 1px solid var(--border); padding: 16px 20px; color: var(--muted); font-size: 0.9rem; }
       .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+      /* Responsive */
+      @media (max-width: 900px) {
+        .services-grid { grid-template-columns: 1fr 1fr; }
+      }
+      @media (max-width: 680px) {
+        .menu-toggle { display: inline-flex; }
+        nav ul { display: none; position: absolute; top: 58px; right: 16px; background: var(--black); border: 1px solid rgba(255,255,255,0.1); padding: 10px; border-radius: 10px; flex-direction: column; width: 220px; }
+        nav ul.open { display: flex; }
+        .hero h1 { font-size: 1.6rem; }
+        form { grid-template-columns: 1fr; }
+        .services-grid { grid-template-columns: 1fr; }
+      }
     </style>
   </head>
   <body>
     <header>
-      <a class="logo">
-        <img class="featured" src="bullzeye-logo.png" alt="Bullzeye Security Ops" />
-        <span class="sr-only">Bullzeye Security Ops</span>
-      </a>
-      <strong>Bullzeye Security Ops</strong>
+      <div class="nav-inner">
+        <a class="logo" href="#home">
+          <img class="featured" src="bullzeye-logo.png" alt="Bullzeye Security Ops" />
+          <strong class="brand">Bullzeye Security Ops</strong>
+        </a>
+        <button id="menuToggle" class="menu-toggle" aria-label="Toggle menu">Menu</button>
+        <nav>
+          <ul id="navList">
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#partnership">M-KOPA Partnership</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#careers" class="prefill-purpose" data-purpose="cv">Careers</a></li>
+            <li><a href="#contact" class="nav-cta prefill-purpose" data-purpose="quote">Get a Quote</a></li>
+          </ul>
+        </nav>
+      </div>
     </header>
 
-    <main>
-      <h1>Contact Bullzeye Security Ops</h1>
-      <p class="lead">Send us your CV, request a quotation, or ask for information. We will route your message to the right team automatically.</p>
+    <main id="home">
+      <section class="hero">
+        <div class="hero-wrap">
+          <div class="hero-content">
+            <span class="badge">South Africa • Professional Security</span>
+            <h1>Red‑Black‑White security you can trust</h1>
+            <p class="lead" style="color:#e5e7eb">We protect homes and businesses with guarding, monitoring, CCTV and rapid response. Flexible packages and fast deployment across South Africa.</p>
+            <div class="hero-actions">
+              <a href="#contact" class="btn prefill-purpose" data-purpose="quote">Request a Quotation</a>
+              <a href="#services" class="btn ghost">Explore Services</a>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      <section class="card">
-        <h2 style="margin-top:0">Send us a message</h2>
+      <section id="services">
+        <h2>Our Services</h2>
+        <p class="lead">End‑to‑end physical security solutions for residential, retail and commercial clients.</p>
+        <div class="services-grid">
+          <div class="service">
+            <h3>24/7 Monitoring & Armed Response</h3>
+            <p>Always‑on control room with rapid dispatch to incidents.</p>
+          </div>
+          <div class="service">
+            <h3>On‑site Guarding</h3>
+            <p>Vetted, trained security officers with site‑specific SOPs.</p>
+          </div>
+          <div class="service">
+            <h3>CCTV & Remote Video Verification</h3>
+            <p>Design, install and monitor intelligent camera systems.</p>
+          </div>
+          <div class="service">
+            <h3>Access Control & Biometrics</h3>
+            <p>Card, PIN and biometric solutions with audit trails.</p>
+          </div>
+          <div class="service">
+            <h3>Alarm Systems</h3>
+            <p>Wireless and wired alarms, perimeter protection and sensors.</p>
+          </div>
+          <div class="service">
+            <h3>Risk Assessments</h3>
+            <p>On‑site evaluations with pragmatic mitigation plans.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="about">
+        <h2>About Bullzeye Security Ops</h2>
+        <p class="lead">We are a South African security operations company focused on reliability, professionalism and fast response. Our teams combine experienced personnel with modern technology to reduce risk and protect what matters.</p>
+      </section>
+
+      <section id="partnership" class="card">
+        <h2 style="margin-top:0">Our partnership with M‑KOPA</h2>
+        <p>M‑KOPA is a technology and financial platform that enables customers to access products through flexible, pay‑as‑you‑go financing. In South Africa, M‑KOPA helps people own essential devices and services affordably.</p>
+        <p>Through our collaboration with <a href="https://www.m-kopa.com/country/south-africa" target="_blank" rel="noopener">M‑KOPA South Africa</a>, eligible customers can access flexible payment options on select security packages and equipment. This makes professional security more accessible for households and small businesses.</p>
+      </section>
+
+      <section id="careers">
+        <h2>Careers</h2>
+        <p class="lead">We’re always looking for talented security professionals. Send us your CV and we’ll be in touch when a suitable role opens.</p>
+        <p><a href="#contact" class="btn prefill-purpose" data-purpose="cv">Submit Your CV</a></p>
+      </section>
+
+      <section id="contact" class="card">
+        <h2 style="margin-top:0">Contact us</h2>
         <form id="contactForm">
           <div class="full">
             <label for="fullName">Full name</label>
@@ -87,7 +206,7 @@
             <button class="secondary" type="reset">Clear</button>
           </div>
         </form>
-        <p class="hint">Submitting will open your email app with a pre-filled message to the correct address.</p>
+        <p class="hint">Submitting will open your email app with a pre‑filled message to the correct address.</p>
       </section>
     </main>
 
@@ -103,6 +222,15 @@
       const year = document.getElementById('year');
       year.textContent = String(new Date().getFullYear());
 
+      // Mobile menu toggle
+      const menuToggle = document.getElementById('menuToggle');
+      const navList = document.getElementById('navList');
+      if (menuToggle && navList) {
+        menuToggle.addEventListener('click', function () {
+          navList.classList.toggle('open');
+        });
+      }
+
       function setCvVisibility() {
         const isCv = purpose.value === 'cv';
         cvLinkRow.style.display = isCv ? 'block' : 'none';
@@ -110,6 +238,17 @@
       }
       purpose.addEventListener('change', setCvVisibility);
       setCvVisibility();
+
+      // Allow links/buttons to pre-select a purpose
+      document.querySelectorAll('.prefill-purpose').forEach(function (el) {
+        el.addEventListener('click', function () {
+          const p = el.getAttribute('data-purpose');
+          if (p) {
+            purpose.value = p;
+            setCvVisibility();
+          }
+        });
+      });
 
       form.addEventListener('submit', function (event) {
         event.preventDefault();
