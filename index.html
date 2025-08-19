@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bullzeye Security Ops</title>
+    <meta name="description" content="Bullzeye Security Ops" />
+    <style>
+      :root { --accent: #0b5cff; --text: #1a1a1a; --muted: #6b7280; --bg: #ffffff; --border: #e5e7eb; }
+      * { box-sizing: border-box; }
+      body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; color: var(--text); background: var(--bg); }
+      header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 14px; }
+      header img.featured { height: 40px; width: auto; display: block; }
+      header a.logo { display: inline-flex; align-items: center; }
+      main { max-width: 960px; margin: 24px auto; padding: 0 20px 40px; }
+      h1 { font-size: 1.75rem; margin: 0 0 16px; }
+      p.lead { color: var(--muted); margin: 0 0 24px; }
+      section { margin-top: 32px; }
+      .card { border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+      form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+      .full { grid-column: 1 / -1; }
+      label { display: block; font-weight: 600; margin: 4px 0 6px; }
+      input, select, textarea { width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; font: inherit; }
+      textarea { min-height: 120px; resize: vertical; }
+      .hint { color: var(--muted); font-size: 0.9rem; margin-top: 6px; }
+      .actions { display: flex; gap: 12px; align-items: center; margin-top: 6px; }
+      button { appearance: none; background: var(--accent); color: #fff; border: 0; padding: 10px 14px; border-radius: 8px; font-weight: 600; cursor: pointer; }
+      button.secondary { background: #111827; }
+      footer { border-top: 1px solid var(--border); padding: 16px 20px; color: var(--muted); font-size: 0.9rem; }
+      .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a class="logo" href="https://www.m-kopa.com/country/south-africa" target="_blank" rel="noopener">
+        <img class="featured" src="M-kopa.png" alt="M-KOPA South Africa" />
+        <span class="sr-only">M-KOPA South Africa</span>
+      </a>
+      <strong>Bullzeye Security Ops</strong>
+    </header>
+
+    <main>
+      <h1>Contact Bullzeye Security Ops</h1>
+      <p class="lead">Send us your CV, request a quotation, or ask for information. We will route your message to the right team automatically.</p>
+
+      <section class="card">
+        <h2 style="margin-top:0">Send us a message</h2>
+        <form id="contactForm">
+          <div class="full">
+            <label for="fullName">Full name</label>
+            <input id="fullName" name="fullName" type="text" required placeholder="Jane Doe" />
+          </div>
+
+          <div>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required placeholder="you@example.com" />
+          </div>
+
+          <div>
+            <label for="phone">Phone (optional)</label>
+            <input id="phone" name="phone" type="tel" placeholder="+27 82 000 0000" />
+          </div>
+
+          <div class="full">
+            <label for="purpose">Purpose</label>
+            <select id="purpose" name="purpose" required>
+              <option value="" disabled selected>Select an option</option>
+              <option value="cv">CV Submission</option>
+              <option value="quote">Quotation Request</option>
+              <option value="info">Information Request</option>
+            </select>
+          </div>
+
+          <div class="full" id="cvLinkRow" style="display:none">
+            <label for="cvLink">CV document link</label>
+            <input id="cvLink" name="cvLink" type="url" placeholder="https://drive.google.com/…" />
+            <div class="hint">Paste a shareable URL to your CV document.</div>
+          </div>
+
+          <div class="full">
+            <label for="message">Message (optional)</label>
+            <textarea id="message" name="message" placeholder="Write details to help us respond quickly…"></textarea>
+          </div>
+
+          <div class="full actions">
+            <button type="submit">Send</button>
+            <button class="secondary" type="reset">Clear</button>
+          </div>
+        </form>
+        <p class="hint">Submitting will open your email app with a pre-filled message to the correct address.</p>
+      </section>
+    </main>
+
+    <footer>
+      © <span id="year"></span> Bullzeye Security Ops
+    </footer>
+
+    <script>
+      const form = document.getElementById('contactForm');
+      const purpose = document.getElementById('purpose');
+      const cvLinkRow = document.getElementById('cvLinkRow');
+      const cvLinkInput = document.getElementById('cvLink');
+      const year = document.getElementById('year');
+      year.textContent = String(new Date().getFullYear());
+
+      function setCvVisibility() {
+        const isCv = purpose.value === 'cv';
+        cvLinkRow.style.display = isCv ? 'block' : 'none';
+        cvLinkInput.required = isCv;
+      }
+      purpose.addEventListener('change', setCvVisibility);
+      setCvVisibility();
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const fullName = document.getElementById('fullName').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const message = document.getElementById('message').value.trim();
+        const reason = purpose.value;
+        const cvLink = cvLinkInput.value.trim();
+
+        if (!fullName || !email || !reason) {
+          alert('Please complete your name, email, and purpose.');
+          return;
+        }
+        if (reason === 'cv' && !cvLink) {
+          alert('Please provide a link to your CV document.');
+          return;
+        }
+
+        const recipient = reason === 'cv' ? 'admin@bullzeyesecurityops.com' : 'info@bullzeyesecurityops.com';
+        const subjectMap = {
+          cv: `CV Submission from ${fullName}`,
+          quote: `Quotation Request from ${fullName}`,
+          info: `Information Request from ${fullName}`,
+        };
+        const subject = subjectMap[reason] || `Message from ${fullName}`;
+
+        const lines = [
+          `Name: ${fullName}`,
+          `Email: ${email}`,
+          phone ? `Phone: ${phone}` : null,
+          `Purpose: ${reason === 'cv' ? 'CV Submission' : reason === 'quote' ? 'Quotation Request' : 'Information Request'}`,
+          reason === 'cv' ? `CV Link: ${cvLink}` : null,
+          '',
+          message ? message : '(No additional message provided)'
+        ].filter(Boolean);
+
+        const body = encodeURIComponent(lines.join('\n'));
+        const mailto = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${body}`;
+
+        window.location.href = mailto;
+      });
+    </script>
+  </body>
+</html>
+
