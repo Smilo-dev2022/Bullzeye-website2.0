@@ -31,6 +31,13 @@
       h2 { font-size: 1.375rem; margin: 0 0 14px; }
       p.lead { color: var(--muted); margin: 0 0 24px; font-size: 1.05rem; }
 
+      /* Section helpers */
+      .section-title { display: flex; align-items: center; gap: 10px; margin: 0 0 14px; }
+      .section-title .dash { width: 28px; height: 3px; background: var(--accent); border-radius: 2px; }
+      .bleed { margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); padding-left: 20px; padding-right: 20px; }
+      .alt-bg { background: #f9fafb; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+      .dark-bg { background: #0b1220; color: var(--white); }
+
       /* Hero */
       .hero { position: relative; margin: 0; padding: 0; }
       .hero-wrap { border-bottom: 1px solid var(--border); background: linear-gradient(180deg, rgba(17,24,39,0.75), rgba(17,24,39,0.75)), url('bullzeye.jpg') center/cover no-repeat; }
@@ -54,19 +61,57 @@
       button { appearance: none; background: var(--accent); color: #fff; border: 0; padding: 10px 14px; border-radius: 8px; font-weight: 700; cursor: pointer; }
       button.secondary { background: var(--black); }
 
+      /* Split layout */
+      .split { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 24px; align-items: center; }
+      .split.reverse { grid-template-columns: 0.85fr 1.15fr; }
+      .media-box { border-radius: 14px; overflow: hidden; border: 1px solid var(--border); background: #0b1220; position: relative; min-height: 300px; }
+      .media-box img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.9; }
+      .media-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.0), rgba(0,0,0,0.45)); }
+
+      /* Stats band */
+      .stats-band { padding: 18px 0; }
+      .stats { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+      .stat { background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 14px; text-align: center; }
+      .stat .num { font-weight: 900; font-size: 1.4rem; color: var(--black); }
+      .stat .label { color: var(--muted); font-size: 0.92rem; }
+
       /* Services */
       .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-      .service { border: 1px solid var(--border); border-radius: 12px; padding: 16px; background: #ffffff; }
+      .service { border: 1px solid var(--border); border-radius: 12px; padding: 16px; background: #ffffff; transition: transform 160ms ease, box-shadow 160ms ease; }
+      .service:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.06); }
       .service h3 { margin: 0 0 6px; font-size: 1.05rem; }
       .service p { margin: 0; color: var(--muted); }
 
+      /* Testimonials */
+      .testimonials { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+      .quote { background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+      .quote p { margin: 0 0 10px; }
+      .quote .author { color: var(--muted); font-size: 0.92rem; }
+
+      /* FAQ */
+      details.faq { border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; background: #ffffff; }
+      details.faq + details.faq { margin-top: 10px; }
+      details.faq summary { cursor: pointer; font-weight: 700; }
+      details.faq[open] { background: #f9fafb; }
+
       /* Footer */
-      footer { border-top: 1px solid var(--border); padding: 16px 20px; color: var(--muted); font-size: 0.9rem; }
+      footer { border-top: 1px solid var(--border); padding: 24px 20px; color: var(--muted); font-size: 0.9rem; }
+      .footer-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 16px; align-items: start; }
+      .footer-col h4 { margin: 0 0 10px; color: var(--black); font-size: 1rem; }
+      .footer-col ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+      .footer-col a { color: inherit; text-decoration: none; }
+      .footer-bottom { max-width: 1100px; margin: 12px auto 0; display: flex; justify-content: space-between; align-items: center; }
+
+      /* Back to top */
+      .to-top { position: fixed; right: 18px; bottom: 18px; background: var(--black); color: var(--white); border: 0; padding: 10px 12px; border-radius: 999px; font-weight: 700; display: none; box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+      .to-top.show { display: inline-flex; }
       .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 
       /* Responsive */
       @media (max-width: 900px) {
         .services-grid { grid-template-columns: 1fr 1fr; }
+        .testimonials { grid-template-columns: 1fr 1fr; }
+        .split { grid-template-columns: 1fr; }
       }
       @media (max-width: 680px) {
         .menu-toggle { display: inline-flex; }
@@ -75,6 +120,7 @@
         .hero h1 { font-size: 1.6rem; }
         form { grid-template-columns: 1fr; }
         .services-grid { grid-template-columns: 1fr; }
+        .testimonials { grid-template-columns: 1fr; }
       }
     </style>
   </head>
@@ -91,6 +137,8 @@
             <li><a href="#services">Services</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#partnership">M-KOPA Partnership</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#faq">FAQ</a></li>
             <li><a href="#contact">Contact</a></li>
             <li><a href="#careers" class="prefill-purpose" data-purpose="cv">Careers</a></li>
             <li><a href="#contact" class="nav-cta prefill-purpose" data-purpose="quote">Get a Quote</a></li>
@@ -114,8 +162,29 @@
         </div>
       </section>
 
+      <section class="bleed alt-bg stats-band" aria-label="Key numbers">
+        <div class="stats">
+          <div class="stat">
+            <div class="num">24/7</div>
+            <div class="label">Monitoring Centre</div>
+          </div>
+          <div class="stat">
+            <div class="num">&lt; 5 min</div>
+            <div class="label">Typical Dispatch Time</div>
+          </div>
+          <div class="stat">
+            <div class="num">300+ </div>
+            <div class="label">Sites Protected</div>
+          </div>
+          <div class="stat">
+            <div class="num">Nationwide</div>
+            <div class="label">Coverage</div>
+          </div>
+        </div>
+      </section>
+
       <section id="services">
-        <h2>Our Services</h2>
+        <h2 class="section-title"><span class="dash"></span>Our Services</h2>
         <p class="lead">End‑to‑end physical security solutions for residential, retail and commercial clients.</p>
         <div class="services-grid">
           <div class="service">
@@ -146,25 +215,102 @@
       </section>
 
       <section id="about">
-        <h2>About Bullzeye Security Ops</h2>
-        <p class="lead">We are a South African security operations company focused on reliability, professionalism and fast response. Our teams combine experienced personnel with modern technology to reduce risk and protect what matters.</p>
+        <h2 class="section-title"><span class="dash"></span>About Bullzeye Security Ops</h2>
+        <div class="split">
+          <div>
+            <p class="lead">We are a South African security operations company focused on reliability, professionalism and fast response. Our teams combine experienced personnel with modern technology to reduce risk and protect what matters.</p>
+            <ul>
+              <li>PSIRA‑compliant officers and supervisors</li>
+              <li>Real‑time incident reporting and escalation</li>
+              <li>Custom SOPs and post orders per site</li>
+            </ul>
+            <div class="hero-actions" style="margin-top:16px">
+              <a href="#contact" class="btn prefill-purpose" data-purpose="quote">Get protected</a>
+              <a href="#careers" class="btn secondary prefill-purpose" data-purpose="cv">Join our team</a>
+            </div>
+          </div>
+          <div class="media-box">
+            <img src="bullzeye.jpg" alt="Bullzeye team on duty" />
+            <div class="media-overlay" aria-hidden="true"></div>
+          </div>
+        </div>
       </section>
 
-      <section id="partnership" class="card">
-        <h2 style="margin-top:0">Our partnership with M‑KOPA</h2>
-        <p>M‑KOPA is a technology and financial platform that enables customers to access products through flexible, pay‑as‑you‑go financing. In South Africa, M‑KOPA helps people own essential devices and services affordably.</p>
-        <p>Through our collaboration with <a href="https://www.m-kopa.com/country/south-africa" target="_blank" rel="noopener">M‑KOPA South Africa</a>, eligible customers can access flexible payment options on select security packages and equipment. This makes professional security more accessible for households and small businesses.</p>
+      <section id="partnership" class="bleed alt-bg">
+        <div style="max-width:1100px;margin:0 auto;padding:24px 20px 12px;">
+          <h2 class="section-title" style="margin-top:0"><span class="dash"></span>Our partnership with M‑KOPA</h2>
+          <div class="split">
+            <div>
+              <p>M‑KOPA is a technology and financial platform that enables customers to access products through flexible, pay‑as‑you‑go financing. In South Africa, M‑KOPA helps people own essential devices and services affordably.</p>
+              <p>Through our collaboration with <a href="https://www.m-kopa.com/country/south-africa" target="_blank" rel="noopener">M‑KOPA South Africa</a>, eligible customers can access flexible payment options on select security packages and equipment. This makes professional security more accessible for households and small businesses.</p>
+              <p class="hint">Subject to eligibility and terms from M‑KOPA.</p>
+            </div>
+            <div class="card" style="display:flex;align-items:center;justify-content:center;min-height:220px;background:#fff;">
+              <img src="m-kopa.png.png" alt="M‑KOPA South Africa" style="max-width:300px;width:100%;height:auto;opacity:0.9" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="testimonials">
+        <h2 class="section-title"><span class="dash"></span>What clients say</h2>
+        <div class="testimonials">
+          <div class="quote">
+            <p>“Professional from day one. Response team arrived within minutes when our alarm triggered.”</p>
+            <div class="author">Facilities Manager, Retail Chain</div>
+          </div>
+          <div class="quote">
+            <p>“Site SOPs are clear and followed. Reporting has improved our risk oversight dramatically.”</p>
+            <div class="author">Operations Lead, Logistics</div>
+          </div>
+          <div class="quote">
+            <p>“Great value with the financing option. We finally upgraded CCTV without cash flow pain.”</p>
+            <div class="author">Small Business Owner</div>
+          </div>
+        </div>
       </section>
 
       <section id="careers">
-        <h2>Careers</h2>
+        <h2 class="section-title"><span class="dash"></span>Careers</h2>
         <p class="lead">We’re always looking for talented security professionals. Send us your CV and we’ll be in touch when a suitable role opens.</p>
-        <p><a href="#contact" class="btn prefill-purpose" data-purpose="cv">Submit Your CV</a></p>
+        <div class="services-grid">
+          <div class="service">
+            <h3>Who we hire</h3>
+            <p>PSIRA‑certified guards, supervisors, control room operators, technicians.</p>
+          </div>
+          <div class="service">
+            <h3>What we offer</h3>
+            <p>Training, clear SOPs, stable deployments and career progression.</p>
+          </div>
+          <div class="service">
+            <h3>How to apply</h3>
+            <p>Click below and include a link to your CV document.</p>
+          </div>
+        </div>
+        <p style="margin-top:14px"><a href="#contact" class="btn prefill-purpose" data-purpose="cv">Submit Your CV</a></p>
+      </section>
+
+      <section id="faq" class="card">
+        <h2 style="margin-top:0">Frequently Asked Questions</h2>
+        <details class="faq">
+          <summary>Where do you operate?</summary>
+          <div class="hint">We support clients across South Africa through our partner network and rapid response providers.</div>
+        </details>
+        <details class="faq">
+          <summary>Can you take over existing alarm or CCTV systems?</summary>
+          <div class="hint">Yes. We assess your existing system and recommend takeover or upgrade options based on risk and cost.</div>
+        </details>
+        <details class="faq">
+          <summary>Do you offer temporary guarding for events or construction?</summary>
+          <div class="hint">Yes. Short‑term deployments are available; contact us for a quotation.</div>
+        </details>
       </section>
 
       <section id="contact" class="card">
         <h2 style="margin-top:0">Contact us</h2>
-        <form id="contactForm">
+        <div class="split">
+          <div>
+            <form id="contactForm">
           <div class="full">
             <label for="fullName">Full name</label>
             <input id="fullName" name="fullName" type="text" required placeholder="Jane Doe" />
@@ -205,14 +351,51 @@
             <button type="submit">Send</button>
             <button class="secondary" type="reset">Clear</button>
           </div>
-        </form>
-        <p class="hint">Submitting will open your email app with a pre‑filled message to the correct address.</p>
+            </form>
+            <p class="hint">Submitting will open your email app with a pre‑filled message to the correct address.</p>
+          </div>
+          <aside>
+            <div class="card" style="background:#0b1220;color:#fff;border-color:#0b1220;">
+              <h3 style="margin-top:0">Talk to us</h3>
+              <p style="margin:0 0 8px">Email: <a style="color:#fff" href="mailto:info@bullzeyesecurityops.com">info@bullzeyesecurityops.com</a></p>
+              <p style="margin:0 0 8px">Careers: <a style="color:#fff" href="mailto:admin@bullzeyesecurityops.com">admin@bullzeyesecurityops.com</a></p>
+              <p class="hint" style="color:#cbd5e1">Office hours: Mon–Fri, 08:00–17:00</p>
+            </div>
+          </aside>
+        </div>
       </section>
     </main>
 
     <footer>
-      © <span id="year"></span> Bullzeye Security Ops
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>About</h4>
+          <p class="hint">Reliable, technology‑enabled security operations protecting homes and businesses across South Africa.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick links</h4>
+          <ul>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="#contact">Get a quote</a></li>
+            <li><a href="#careers" class="prefill-purpose" data-purpose="cv">Careers</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© <span id="year"></span> Bullzeye Security Ops</div>
+        <a href="#home" class="btn ghost" style="border-color:#e5e7eb;color:#111827">Back to top</a>
+      </div>
     </footer>
+
+    <button id="toTop" class="to-top" aria-label="Back to top">Top</button>
 
     <script>
       const form = document.getElementById('contactForm');
@@ -291,6 +474,19 @@
         const mailto = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${body}`;
 
         window.location.href = mailto;
+      });
+
+      // Back to top button
+      const toTop = document.getElementById('toTop');
+      window.addEventListener('scroll', function () {
+        if (window.scrollY > 400) {
+          toTop.classList.add('show');
+        } else {
+          toTop.classList.remove('show');
+        }
+      });
+      toTop.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     </script>
   </body>
